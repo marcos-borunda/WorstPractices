@@ -11,7 +11,7 @@ namespace WorstPractices.Async
         public async Task HandledException_ReturnsTrue()
         {
             // If we change catchable to false the exception won't be catched
-            // not even by from MsTest's ExpectException
+            // not even by MsTest's ExpectException
             var result = await AsyncVoidReturn
                 .DidYouCatchTheExceptionAsync(catchable: true);
                 
