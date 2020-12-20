@@ -22,7 +22,7 @@ namespace WorstPractices
         }
 
         [TestMethod]
-        public void TestingBuilderStringConcatenation_TakesLessThan5Miliseconds()
+        public void TestingBuilderStringConcatenation_TakesLessThan10Miliseconds()
         {
             var stopWatch = new Stopwatch();
 
@@ -32,7 +32,7 @@ namespace WorstPractices
 
             stopWatch.Stop();
 
-            Assert.IsTrue(stopWatch.Elapsed.Milliseconds < 5, $"Elapsed: {stopWatch.Elapsed.Milliseconds}"); 
+            Assert.IsTrue(stopWatch.Elapsed.Milliseconds < 10, $"Elapsed: {stopWatch.Elapsed.Milliseconds}"); 
         }
     }
 }
