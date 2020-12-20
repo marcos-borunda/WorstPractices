@@ -7,13 +7,17 @@ namespace WorstPractices.Multithread
         private readonly object firstLock = new object(); 
         private readonly object secondLock = new object();
 
-        public int DeadlockSum()
+        // deadlockSafe = true will use a method with the right lock order to avoid a deadlock
+        public int Sum(bool deadlockSafe)
         {
             int? firstInt = null;
             int? secondInt = null;
 
-            Thread firstThread = new (() => firstInt = FirstMethod());
-            Thread secondThread = new (() => secondInt = SecondMethod());
+            Thread firstThread = new (() => firstInt = SafeFirstMethod());
+            Thread secondThread = new (() =>
+                secondInt = deadlockSafe
+                ? SafeSecondMethod()
+                : UnsafeSecondMethod());
             
             firstThread.Start();
             secondThread.Start();
@@ -24,7 +28,7 @@ namespace WorstPractices.Multithread
             return (firstInt ?? 0) + (secondInt ?? 0);
         }
 
-        private int FirstMethod()
+        private int SafeFirstMethod()
         {
             lock (firstLock)
             {
@@ -36,12 +40,24 @@ namespace WorstPractices.Multithread
             }
         }
 
-        private int SecondMethod()
+        private int UnsafeSecondMethod()
         {
             lock (secondLock)
             {
                 Thread.Sleep(1100);
                 lock (firstLock)
+                {
+                    return 2;
+                }
+            }
+        }
+
+        private int SafeSecondMethod()
+        {
+            lock (firstLock)
+            {
+                Thread.Sleep(1100);
+                lock (secondLock)
                 {
                     return 2;
                 }

@@ -5,11 +5,17 @@ namespace WorstPractices.Multithread
     [TestClass]
     public class DeadlockTests
     {
-        [TestMethod]
         [Ignore] // Ignoring this test to avoid deadlock
-        public void TestDeadLock()
+        [TestMethod]
+        public void Unsafe_Generates_DeadLock()
         {
-            Assert.AreEqual(3, new Deadlock().DeadlockSum());
+            Assert.AreEqual(3, new Deadlock().Sum(deadlockSafe: false));
+        }
+
+        [TestMethod]
+        public void Safe_Avoids_DeadLock()
+        {
+            Assert.AreEqual(3, new Deadlock().Sum(deadlockSafe: true));
         }
     }
 }
