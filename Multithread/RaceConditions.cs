@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 
-namespace WorstPractices
+namespace WorstPractices.Multithread
 {
     public class RaceConditions
     {

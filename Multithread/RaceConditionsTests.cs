@@ -1,7 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace WorstPractices
+namespace WorstPractices.Multithread
 {
     [TestClass]
     public class RaceConditionTests
