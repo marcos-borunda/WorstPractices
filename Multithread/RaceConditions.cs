@@ -12,8 +12,6 @@ namespace WorstPractices.Multithread
 
         public (int[] expected, int[] real)? RunMultiThread(bool safe)
         {
-            SharedValues sharedValues = new();
-            
             (int[],int[])? values = null;
 
             Thread firstThread = new(() => values = safe
